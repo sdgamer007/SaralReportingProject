@@ -3,6 +3,7 @@ package com.saral.reporting.repo;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +16,7 @@ public interface ApplInfoJsonRepository extends JpaRepository<ApplInfoJson, Long
 	Long countByServiceId(Long serviceId);
 
 	List<ApplInfoJson> findByServiceId(Long serviceId);
+
+	List<ApplInfoJson> findByServiceIdAndLocationValue(Long serviceId, Long locationvalue);
 
 }

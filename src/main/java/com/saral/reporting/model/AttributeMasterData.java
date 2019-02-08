@@ -14,7 +14,7 @@ public class AttributeMasterData {
 
 	@Id
 	@Column(name = "id")
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "spdi_service_id")
 	private String spdiServiceId;
@@ -49,11 +49,11 @@ public class AttributeMasterData {
 	@Column(name = "entrytime")
 	private Date entrytime;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

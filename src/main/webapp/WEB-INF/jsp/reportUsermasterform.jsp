@@ -8,7 +8,27 @@
 
 <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
+	<style>
+	.container.cus-report {border: 1px solid #438EB9;border-radius:4px;}
+.cus-report h2 {
+    padding: 10px;
+    width: 100%;
+    margin-top: -22px;
+    margin-bottom: 25px;
+    background: #438EB9;
+    color: #fff;
+    font-size: 18px;
+	font-family: 'Adamina';
 
+}
+.report-photo {
+    margin-top: -5px;
+}
+.input-icon.input-icon-right > .ace-icon {
+    right: 20px ;
+
+}
+	</style>
 	<!-- <div class="main-container ace-save-state" id="main-container"> -->
 
 		<div class="main-content">
@@ -150,38 +170,75 @@
 									value=${department_id
 									} id="deptid" />
 							</div>
-							<div class="container">
-								<spring:url value="/saveReportUserMaster" var="saveURL" />
-								<h2>Report Filter Master</h2>
-								<form:form modelAttribute="reportUserMaster" method="post"
-									action="${saveURL}" cssClass="form">
-									<form:hidden path="userDataId" />
-								
-										<label for="inputWarning" class="col-xs-12 col-sm-3 control-label no-padding-right">User Name:</label>
-										<span class="block input-icon input-icon-right">
-										<form:input path="signNO" class="form-control" id="inputWarning"  />
+							<div class="container cus-report">
+											<h2><img src="assets/images/icons/report.png" class="report-photo" alt="" /> Report Filter Master</h2>
+								<form id="reportUserMaster" class="form" action="/saveReportUserMaster" method="post">
+									<input id="userDataId" name="userDataId" type="hidden" value=""/>
+								<div class="form-group row has-success has-warning has-error">
+										<label for="inputWarning" class="col-md-offset-1 col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">User Name:</label>
+										<span class="col-md-6 block input-icon input-icon-right">
+										<input id="inputWarning" name="signNO" class="form-control" type="text" value=""/>
 										</span>
-										<label>Password:</label>
-										<form:input path="password" class="form-control" />
-										<label>Role:</label>
+										</div>
+										<div class="form-group row has-success has-warning has-error">
+										<label class="col-md-offset-1 col-md-3 control-label">Password:</label>
+										<span class="col-md-6 input-icon input-icon-right">
+										<input id="password" name="password" class="form-control" type="text" value=""/>
+										
+										<i class="ace-icon fa fa-check-circle"></i>
+										</span>
+										</div>
+										<div class="form-group row has-success">
+										<label class="col-md-offset-1 col-md-3 control-label">Role:</label>
+										<div class="col-md-6">
 										<select id="selectedRole" name="roleId" class="form-control"   >
 											<option value="0">Please Select Role</option>
 										</select>
-										<label>Designation:</label>
-										<form:input path="designation" class="form-control" />
-										<label>Detail of User:</label>
-										<form:input path="userDetail" class="form-control" />
-										<label>Mobile Number:</label>
-										<form:input path="mobilenumber" class="form-control" />
-										<label>Email:</label>
-										<form:input path="email" class="form-control" />
-										<label>State:</label>
+										</div>
+										</div>
+										<div class="form-group row has-success has-warning has-error">
+										<label class="col-md-offset-1 col-md-3 control-label">Designation:</label>
+										<div class="col-md-6">
+										<input id="designation" name="designation" class="form-control" type="text" value=""/>
+										</div>
+										</div>
+										<div class="form-group row has-success has-warning has-error">
+										<label class="col-md-offset-1 col-md-3 control-label">Detail of User:</label>
+										<div class="col-md-6">
+										<input id="userDetail" name="userDetail" class="form-control" type="text" value=""/>
+										</div>
+										</div>
+										<div class="form-group row has-success has-warning has-error">
+										<label class="col-md-offset-1 col-md-3 control-label">Mobile Number:</label>
+										<div class="col-md-6">
+										<input id="mobilenumber" name="mobilenumber" class="form-control" type="text" value=""/>
+										</div>
+										</div>
+										<div class="form-group row has-success has-warning has-error">
+										<label class="col-md-offset-1 col-md-3 control-label">Email:</label>
+										<div class="col-md-6">
+										<input id="email" name="email" class="form-control" type="text" value=""/>
+										</div>
+										</div>
+										<div class="form-group row has-success">
+										<label class="col-md-offset-1 col-md-3 control-label">State:</label>
+										<div class="col-md-6">
 										<select id="selectedState" name="stateId" class="form-control"  >
 											<option value="0">Please Select State</option>
 										</select>
-										<br>
-										<button type="submit" class="btn btn-primary">Save</button>
-								</form:form>
+										</div>
+										</div>
+										<div class="form-group row">
+										<div class="col-md-offset-1 col-md-11 text-center">
+										<button type="submit" class="btn btn-primary">Save
+										<i class="ace-icon fa fa-floppy-o icon-on-right"></i>
+										</button>
+										</div>
+										</div>
+								<div>
+</div></form>
+							
+							
 							</div>
 							
 							<!-- PAGE CONTENT ENDS -->

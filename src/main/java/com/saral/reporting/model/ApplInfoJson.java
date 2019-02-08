@@ -35,6 +35,21 @@ public class ApplInfoJson {
 	
 	@Column(name = "service_id")
 	private Long serviceId;
+	
+	@Column(name = "combined_json")
+	private String combinedJson;
+
+	@Column(name ="location_value")
+	private Long locationValue;
+	
+	
+	public Long getLocationValue() {
+		return locationValue;
+	}
+
+	public void setLocationValue(Long locationValue) {
+		this.locationValue = locationValue;
+	}
 
 	public Long getServiceId() {
 		return serviceId;
@@ -82,6 +97,17 @@ public class ApplInfoJson {
 
 	public void setEnclosureData(String enclosureData) {
 		this.enclosureData = enclosureData;
+	}
+	
+	
+	
+
+	public String getCombinedJson() {
+		return combinedJson;
+	}
+
+	public void setCombinedJson(String combinedJson) {
+		this.combinedJson = combinedJson;
 	}
 
 	@Override

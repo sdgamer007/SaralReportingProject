@@ -198,7 +198,13 @@
 		</dependency>
 		<!-- for excel and csv ends here -->
 
+<!-- JsonPath Expression -->
 
+
+<dependency>
+    <groupId>com.jayway.jsonpath</groupId>
+    <artifactId>json-path</artifactId>
+    </dependency>
 	</dependencies>
 
 	<build>

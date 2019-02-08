@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +34,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.bohnman.squiggly.Squiggly;
 import com.github.bohnman.squiggly.util.SquigglyUtils;
+import com.google.gson.JsonParser;
+import com.jayway.jsonpath.JsonPath;
 import com.saral.reporting.model.ApplInfoJson;
+import com.saral.reporting.model.HrOrgUnits;
 import com.saral.reporting.model.ReportBean;
 import com.saral.reporting.model.ReportSelectColumn;
 import com.saral.reporting.service.ApplInfoJsonService;
+import com.saral.reporting.service.HrOrgUnitsService;
 import com.saral.reporting.service.ReportBeanService;
 import com.saral.reporting.utils.JsonUtils;
 
@@ -49,6 +57,9 @@ public class ViewReportController {
 
 	@Autowired
 	ApplInfoJsonService applInfoJsonService;
+	
+	@Autowired
+	HrOrgUnitsService hrOrgUnitsService;
 
 	@PersistenceContext
 	private EntityManager manager;
@@ -94,6 +105,7 @@ public class ViewReportController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = { "/viewSelectedReportData" }, method = RequestMethod.GET)
 	// @GetMapping("/viewSelectedReport")
 	public String reportSelectedReportShow(ModelMap model, Pageable pageable, HttpServletRequest request)
@@ -101,6 +113,7 @@ public class ViewReportController {
 		System.out.println();
 		Long repId = (Long) request.getSession().getAttribute("reportId");
 		Long servID = (Long) request.getSession().getAttribute("service_id");
+		Long locationId = (Long) request.getSession().getAttribute("location_Id");
 
 		List<Map<String, Object>> listofMap = new ArrayList<>();
 
@@ -140,22 +153,43 @@ public class ViewReportController {
 		// Fetch applInfoNode from List
 		applInfoJson.forEach((temp) -> {
 			// map applinfo in map
-			Map<String, Object> mapInit = JsonUtils.getMapFromString(temp.getApplInfo());
+			//Map<String, Object> mapInit = JsonUtils.getMapFromString(temp.getApplInfo());
 
 			// map attributes in map
-			Map<String, Object> mapAttr = JsonUtils.getMapFromString(temp.getApplicationFormAttributes());
+			Map<String, Object> maptotal = JsonUtils.getMapFromString(temp.getCombinedJson());
 
 			// merging map
 			Map<String, Object> mapFromString = new LinkedHashMap<>();
-			mapFromString.putAll(mapInit);
-			mapFromString.putAll(mapAttr);
+			mapFromString.putAll(maptotal);
+		
 
 			listofMap.add(mapFromString);
 
 		});
 
+		System.out.println("ssssssss"+listofMap.size());
+		// result needs to filter based on location code
+		String mapString = listofMap.toString();
+		List<Long> locationids = getLocationList(locationId);
+		
+		
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.addAll(listofMap);
+		
+		List<Map<String, Object>>  values = new ArrayList<>();
+		  locationids.forEach((temp) ->{
+		  
+		  System.out.println(temp); 
+		  List<Map<String, Object>> author0 =
+		  JsonPath.parse(jsonArray).read( "$.[?(@.location_value == "+temp+")]");
+		  values.addAll(author0);
+		  System.out.println("sssssssssssssssssssss"+author0);
+		  
+		  }) ;
+		 System.out.println("values of map"+ values );
+		//
 		ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), joiner.toString());
-		String result = SquigglyUtils.stringify(objectMapper, listofMap);
+		String result = SquigglyUtils.stringify(objectMapper, values);
 
 		for (ReportSelectColumn s : L1) {
 
@@ -174,8 +208,30 @@ public class ViewReportController {
 		model.put("size", size);
 		System.out.println("number" + pNumber);
 		System.out.println("size" + size);
+		
+		
 		return "showReportNew";
 
+	}
+	
+	public List<Long> getLocationList(Long locationId) {
+		
+		/*
+		 * Code for fetching org_unit_code on the basis of location_id
+		 *And finding the org_unit_code for child of location_id
+		 */
+		//uncomment this line to add both list. do it before launch
+		//l1.addAll(l2);
+		List<HrOrgUnits> l1 = hrOrgUnitsService.findByOrgUnitCode(locationId);
+		List<HrOrgUnits> l2 = hrOrgUnitsService.findByParentOrgUnitCode(locationId);
+		//System.out.println("list l1" + l1);
+		//System.out.println("Size of l1" + l1.size());
+		//System.out.println("list l2" + l2);
+		//System.out.println("Size l2" + l2.size());
+		List<Long> field1List = l1.stream().map(urEntity -> urEntity.getOrgUnitCode()).collect(Collectors.toList());
+		System.out.println("Converted List is :" + field1List);
+		return field1List;
+		
 	}
 
 }

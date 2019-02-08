@@ -36,4 +36,9 @@ public class ApplInfoJsonServiceImpl implements ApplInfoJsonService {
 		return applInfoJsonRepository.countByServiceId(serviceId);
 	}
 
+	@Override
+	public List<ApplInfoJson> findByServiceIdAndLocationValue(Long serviceId, Long locationvalue) {
+		return applInfoJsonRepository.findByServiceIdAndLocationValue(serviceId,locationvalue);
+	}
+
 }

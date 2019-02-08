@@ -29,12 +29,12 @@ public class CsvView extends AbstractCsvView {
 		JSONObject json = output.getJSONObject(0);
 		
 		Iterator<String> keys = json.keys();
-		int i = 0;
+		
 while (keys.hasNext()) {
 			String key = keys.next();
 			ar.add(key);
 			System.out.println(key);
-			i++;
+		
 		}
 		
 		String[] header = new String[ar.size()];

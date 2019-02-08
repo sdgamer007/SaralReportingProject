@@ -57,12 +57,12 @@ public class PdfView extends AbstractPdfView {
 		System.out.println("I am here at header section");
 		// write table header
 		Iterator<String> keys3 = json.keys();
-		int a = 0;
+
 		while (keys3.hasNext()) {
 			String keyNew = keys3.next();
 			cell.setPhrase(new Phrase(keyNew, font));
 			table.addCell(cell);
-			a++;
+		
 		}
 
 		System.out.println("I am here one two three output.length()");

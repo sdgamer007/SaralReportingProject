@@ -181,7 +181,7 @@
 														var="updateURL" /> <a class="btn btn-primary"
 													href="${updateURL}" role="button">Update</a></td>
 												<td><spring:url
-														value="/deleteUserFunctons?id=${ReportUserMaster.userDataId }"
+														value="/deleteReportUserMaster?id=${ReportUserMaster.userDataId }"
 														var="deleteURL" /> <a class="btn btn-primary"
 													href="${deleteURL }" role="button">Delete</a></td>
 											</tr>
