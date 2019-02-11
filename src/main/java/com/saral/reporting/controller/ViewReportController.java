@@ -105,7 +105,6 @@ public class ViewReportController {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = { "/viewSelectedReportData" }, method = RequestMethod.GET)
 	// @GetMapping("/viewSelectedReport")
 	public String reportSelectedReportShow(ModelMap model, Pageable pageable, HttpServletRequest request)
@@ -147,7 +146,7 @@ public class ViewReportController {
 		}
 		model.put("totalPages", totalPages);
 
-		Page<ApplInfoJson> applInfoJson = applInfoJsonService.findByServiceId(servID, pageable);
+		Page<ApplInfoJson> applInfoJson = applInfoJsonService.findAll(pageable);
 		System.out.println(applInfoJson);
 
 		// Fetch applInfoNode from List
@@ -156,7 +155,7 @@ public class ViewReportController {
 			//Map<String, Object> mapInit = JsonUtils.getMapFromString(temp.getApplInfo());
 
 			// map attributes in map
-			Map<String, Object> maptotal = JsonUtils.getMapFromString(temp.getCombinedJson());
+			Map<String, Object> maptotal =temp.getCombinedJson();
 
 			// merging map
 			Map<String, Object> mapFromString = new LinkedHashMap<>();
@@ -169,27 +168,23 @@ public class ViewReportController {
 
 		System.out.println("ssssssss"+listofMap.size());
 		// result needs to filter based on location code
-		String mapString = listofMap.toString();
-		List<Long> locationids = getLocationList(locationId);
-		
-		
-		JSONArray jsonArray = new JSONArray();
-		jsonArray.addAll(listofMap);
-		
-		List<Map<String, Object>>  values = new ArrayList<>();
-		  locationids.forEach((temp) ->{
-		  
-		  System.out.println(temp); 
-		  List<Map<String, Object>> author0 =
-		  JsonPath.parse(jsonArray).read( "$.[?(@.location_value == "+temp+")]");
-		  values.addAll(author0);
-		  System.out.println("sssssssssssssssssssss"+author0);
-		  
-		  }) ;
-		 System.out.println("values of map"+ values );
-		//
-		ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), joiner.toString());
-		String result = SquigglyUtils.stringify(objectMapper, values);
+		/*
+		 * String mapString = listofMap.toString(); List<Long> locationids =
+		 * getLocationList(locationId);
+		 * 
+		 * 
+		 * JSONArray jsonArray = new JSONArray(); jsonArray.addAll(listofMap);
+		 * 
+		 * List<Map<String, Object>> values = new ArrayList<>();
+		 * locationids.forEach((temp) ->{
+		 * 
+		 * System.out.println(temp); List<Map<String, Object>> author0 =
+		 * JsonPath.parse(jsonArray).read( "$.[?(@.location_value == "+temp+")]");
+		 * values.addAll(author0); System.out.println("sssssssssssssssssssss"+author0);
+		 * 
+		 * }) ; System.out.println("values of map"+ values ); //
+		 */		ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), joiner.toString());
+		String result = SquigglyUtils.stringify(objectMapper, listofMap);
 
 		for (ReportSelectColumn s : L1) {
 

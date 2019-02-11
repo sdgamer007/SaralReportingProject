@@ -19,9 +19,9 @@ public class ApplInfoJsonServiceImpl implements ApplInfoJsonService {
 	ApplInfoJsonRepository applInfoJsonRepository;
 
 	@Override
-	public Page<ApplInfoJson> findByServiceId(Long serviceId, Pageable pageable) {
+	public Page<ApplInfoJson> findAll(Pageable pageable) {
 
-		return applInfoJsonRepository.findByServiceId(serviceId, new PageRequest(pageable.getPageNumber() - 1, 150));
+		return applInfoJsonRepository.findAll( new PageRequest(pageable.getPageNumber() - 1, 150));
 	}
 
 	@Override

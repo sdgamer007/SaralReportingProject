@@ -200,12 +200,17 @@
 
 <!-- JsonPath Expression -->
 
-
+<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
 <dependency>
     <groupId>com.jayway.jsonpath</groupId>
     <artifactId>json-path</artifactId>
     </dependency>
 	</dependencies>
+
+<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
 
 	<build>
 		<plugins>

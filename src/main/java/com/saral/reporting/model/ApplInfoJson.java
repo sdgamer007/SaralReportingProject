@@ -1,11 +1,15 @@
 package com.saral.reporting.model;
 
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -37,7 +41,8 @@ public class ApplInfoJson {
 	private Long serviceId;
 	
 	@Column(name = "combined_json")
-	private String combinedJson;
+	@Type(type = "JsonDataUserType")
+	private Map<String , Object> combinedJson;
 
 	@Column(name ="location_value")
 	private Long locationValue;
@@ -102,11 +107,11 @@ public class ApplInfoJson {
 	
 	
 
-	public String getCombinedJson() {
+	public Map<String, Object> getCombinedJson() {
 		return combinedJson;
 	}
 
-	public void setCombinedJson(String combinedJson) {
+	public void setCombinedJson(Map<String, Object> combinedJson) {
 		this.combinedJson = combinedJson;
 	}
 

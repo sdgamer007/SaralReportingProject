@@ -163,7 +163,7 @@
 
 
 
-		<div class="main-content">
+		<div class="main-content" style="margin-left: 190px;">
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
 					<ul class="breadcrumb">

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import com.google.gson.Gson;
 import com.saral.reporting.DAO.LoginDAO;
-import com.saral.reporting.model.HrOrgUnits;
 
 @Transactional
 @Controller

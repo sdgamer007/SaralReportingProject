@@ -13,8 +13,8 @@ import com.saral.reporting.model.ApplInfoJson;
 
 
 public interface ApplInfoJsonRepository extends JpaRepository<ApplInfoJson, Long> {
-	//@Query(value="SELECT * FROM saral.r_app_json WHERE  combined_json @> '{\"version_no\":4, \"17942\": \"238\"}';",nativeQuery=true)
-	Page<ApplInfoJson> findByServiceId(Long serviceId, Pageable pageable);
+@Query(value="SELECT * FROM saral.r_app_json WHERE  combined_json @> '{\"version_no\":4, \"17942\": \"238\"}'  /*#pageable*/",nativeQuery=true)
+	Page<ApplInfoJson> findAll(Pageable pageable);
 
 
 	Long countByServiceId(Long serviceId);

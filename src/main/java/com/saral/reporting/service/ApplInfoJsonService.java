@@ -11,11 +11,13 @@ public interface ApplInfoJsonService {
 
 	
 	
-	Page<ApplInfoJson> findByServiceId(Long serviceId, Pageable pageable);
+	//Page<ApplInfoJson> findByServiceId(Long serviceId, Pageable pageable);
 	
 	List<ApplInfoJson> findByServiceIdAndLocationValue(Long serviceId,Long locationvalue);
 	
 	Long countByServiceId(Long serviceId);
 	
-	List<ApplInfoJson> findByServiceIdForExcel(Long serviceId); 
+	List<ApplInfoJson> findByServiceIdForExcel(Long serviceId);
+
+	Page<ApplInfoJson> findAll(Pageable pageable); 
 }
